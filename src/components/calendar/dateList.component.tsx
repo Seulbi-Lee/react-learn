@@ -1,5 +1,6 @@
-import { FC, PropsWithChildren, useState, useRef } from "react";
+import { FC, PropsWithChildren, useRef, useContext } from "react";
 import ModalComponent from "../shared/modal.component";
+import { useModalContext, useSetModalContext } from "../../contexts/modal.provider";
 
 // 이렇게 type 잡아주면 props.이런거 안붙여줘도 됨
 type CalendarDateProps = {
@@ -20,14 +21,19 @@ const DateList: FC<PropsWithChildren<CalendarDateProps>> = ({
   const pervDates = Array.from({length: monthlyFirstDay}, v => '');   // 빈칸 갯수
   const dateArray = Array.from({length: lastdate}, (v, i) => i + 1);  // 시작일
   const dateInfo = `${thisYear}-${thisMonth}`;  // yyyy-m
-  const [modal, setModal] = useState<boolean>(false);
   const refSelectDate = useRef<any>(null);
+
+  console.log('date list, click');
+
+  const isOpen = useModalContext();
+  const setIsOpen = useSetModalContext();
 
   const modalOpen = (e: any) => {
     refSelectDate.current = e.target.value;
-    setModal(true);
+    if (!setIsOpen) return;
+    // setIsOpen(true);
   }
-
+  
   return (
     <>
       <ul className="calendar-body">
@@ -47,11 +53,11 @@ const DateList: FC<PropsWithChildren<CalendarDateProps>> = ({
         ))}
       </ul>
 
-      {/* 왜 이부분이 li 안에 들어갔을 때 {date}를 바로 받을 수 없는지 물어보기 */}
-      <ModalComponent modal={modal} modalClose={setModal}>
-        {/* 여기 내용이 madal component 로 children으로 들어감 */}
-        {refSelectDate.current}
-      </ModalComponent>
+      {isOpen &&
+        <ModalComponent>
+          {refSelectDate.current}
+        </ModalComponent>
+      }
     </>
   )
 }

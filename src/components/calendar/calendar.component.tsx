@@ -5,6 +5,8 @@ import MonthList from './monthList.component';
 import Schedule from "./schedule.component";
 
 const Calendar: FC<PropsWithChildren> = () => {
+  console.log('calendar component');
+
   const [addMonth, setAddMonth] = useState<number>(0);  // addMonth가 변하면 달력 다시 생성
 
   const today = new Date();
