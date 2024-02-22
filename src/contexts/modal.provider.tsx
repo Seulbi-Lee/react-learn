@@ -1,4 +1,5 @@
-import { Dispatch, FC, PropsWithChildren, SetStateAction, createContext, useContext, useId, useState } from "react";
+import { Dispatch, FC, PropsWithChildren, SetStateAction, createContext, useContext, useState } from "react";
+import ModalRoot from "../components/shared/modalRoot.component";
 
 // provider
 // 모달이 열렸는지 확인하는 isOpen, 모달을 열고 닫는 용도의 seIsOpen을 useState로 컨트롤
@@ -30,15 +31,13 @@ export const useModalAction = () => {
 
 const ModalProviderComponent: FC<PropsWithChildren> = ({children}) => {
   const [store, action] = useState(new Set());
-  // const modalId = useId();
-
-  // console.log(modalId)
 
   return (
     <>
       <ModalStore.Provider value={store}>
         <ModalAction.Provider value={action}>
           {children}
+          <ModalRoot/>
         </ModalAction.Provider>
       </ModalStore.Provider>
     </>
