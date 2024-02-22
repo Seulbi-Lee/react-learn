@@ -11,6 +11,7 @@ const MonthList: FC<PropsWithChildren<CalendarMonthPorps>> = ({
   thisMonth,
   calculateMonth,
 }) => {
+  console.log('month list');
   return (
     <ul className="month-list">
       {monthList.map((month: any) => (

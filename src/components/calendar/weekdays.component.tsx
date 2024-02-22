@@ -1,4 +1,5 @@
 const Weekdays = () => {
+  console.log('weekdays')
   return (
     <ul className="calendar-header">
       <li className="day-name">SUN</li>

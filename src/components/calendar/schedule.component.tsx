@@ -1,4 +1,5 @@
 const Schedule = ()=> {
+  console.log('schedule component')
   return (
     <>
       <div className="schedule-new">

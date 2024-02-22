@@ -1,13 +1,35 @@
-import { FC } from "react";
-import { useModalContext } from "../../contexts/modal.provider";
+import { FC, useCallback, useEffect } from "react";
+import { useModalAction, useModalStore } from "../../contexts/modal.provider";
 
 const ModalRoot: FC = () => {
-  const isOpen = useModalContext();
+  const modalStore = useModalStore();
+  const modalAction = useModalAction();
+  const isModalOpened = modalStore.size > 0;  // true, false
+
+  const closeAllModals = useCallback(() => {
+    modalAction(new Set());
+  }, [modalAction]);
+
+  useEffect(() => {
+    if (!isModalOpened) return;
+    
+    const keyDown = (e: KeyboardEvent) => {
+      if(e.code === "Escape") closeAllModals();
+    }
+
+    window.addEventListener("keydown", keyDown);
+
+    return () => {
+      window.addEventListener("keydown", keyDown);
+    }
+  }, [isModalOpened, closeAllModals]);
 
   return (
     <>
-      {isOpen && <div className="modal-bg"></div>}
-      <div id="modalRoot"></div>
+      <div className={isModalOpened ? "modal" : ""}>
+        {isModalOpened && <div className="modal-bg" onClick={closeAllModals}></div>}
+        <div id="modalRoot"></div>
+      </div>
     </>
   );
 }
