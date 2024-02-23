@@ -1,8 +1,14 @@
 import { FC, PropsWithChildren, useCallback, useId } from "react";
 import { useModalAction, useModalStore } from "../contexts/modal.provider";
-import ModalComponent from "../components/shared/modal.component";
+import { Modal, ModalCommonProps } from "../components/shared/modal/";
 
-export const useModal = (Templete?: FC<PropsWithChildren<any>>) => { // Templete을 component로 받을 수 있읍, ? : 비워놔도됨
+export const useModal = <T extends ModalCommonProps,>(
+  Templete?: FC<PropsWithChildren<T>>,): {    // Templete을 component로 받을 수 있음/ ?: 비워놔도됨
+    Modal: FC<PropsWithChildren<Omit<T, "closeModal">>>;
+    isOpen: boolean;
+    openModal: () => void;
+    closeModal: () => void;
+  } => { 
   const modalStore = useModalStore();
   const modalAction = useModalAction();
   const modalId = useId();
@@ -31,18 +37,18 @@ export const useModal = (Templete?: FC<PropsWithChildren<any>>) => { // Templete
 
     if(!Templete) {
       return (
-        <ModalComponent closeHandler={closeModal}>
+        <Modal closeHandler={closeModal}>
           {children}
-        </ModalComponent>
+        </Modal>
       );
     };
 
     return (
-      <ModalComponent closeHandler={closeModal}>
-        <Templete {...restprops}>
+      <Modal closeHandler={closeModal}>
+        <Templete closeModal={closeModal} {...restprops}>
           {children}
         </Templete>
-      </ModalComponent>
+      </Modal>
     );
   }, [Templete, closeModal, isOpen]);
 

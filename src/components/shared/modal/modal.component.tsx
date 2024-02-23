@@ -25,4 +25,4 @@ const ModalComponent: FC<PropsWithChildren<DatePrpos>> = ({
   );
 }
 
-export default ModalComponent;
+export const Modal =  ModalComponent;

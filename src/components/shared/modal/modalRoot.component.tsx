@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect } from "react";
-import { useModalAction, useModalStore } from "../../contexts/modal.provider";
+import { useModalAction, useModalStore } from "../../../contexts/modal.provider";
 
-const ModalRoot: FC = () => {
+const ModalRootComponent: FC = () => {
   const modalStore = useModalStore();
   const modalAction = useModalAction();
   const isModalOpened = modalStore.size > 0;  // true, false
@@ -34,4 +34,4 @@ const ModalRoot: FC = () => {
   );
 }
 
-export default ModalRoot;
+export const ModalRoot = ModalRootComponent;

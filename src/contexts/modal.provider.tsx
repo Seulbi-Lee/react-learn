@@ -1,5 +1,5 @@
 import { Dispatch, FC, PropsWithChildren, SetStateAction, createContext, useContext, useState } from "react";
-import ModalRoot from "../components/shared/modalRoot.component";
+import { ModalRoot } from "../components/shared/modal/";
 
 // provider
 // 모달이 열렸는지 확인하는 isOpen, 모달을 열고 닫는 용도의 seIsOpen을 useState로 컨트롤

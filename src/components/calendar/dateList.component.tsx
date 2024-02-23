@@ -10,7 +10,7 @@ type CalendarDateProps = {
   yyyymd: any;
 };
 
-const DateList: FC<PropsWithChildren<CalendarDateProps>> = ({ 
+const DateList: FC<PropsWithChildren<CalendarDateProps>> = ({
   lastdate,
   monthlyFirstDay,
   thisYear,
